@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-import jwt
+import jwt 
 import tensorflow as tf
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
