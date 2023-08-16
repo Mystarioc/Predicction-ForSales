@@ -1,14 +1,8 @@
-import os
-from fastapi import FastAPI, Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
-import jwt 
-import tensorflow as tf
+from fastapi import FastAPI
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
-import joblib
-import numpy as np
-import pandas as pd
-import xgboost as xgb
+
+
 import models.ModelsPrediccion,models.ventasModels,config.MysqlConecction
 import Controllers.VentasPredic_Controller
 
