@@ -1,4 +1,5 @@
  # Crear el modelo con la estructura proporcionada
+import os
 import tensorflow as tf
 import xgboost as xgb
 
@@ -28,14 +29,17 @@ def TrainXGBoost (X_train,y_train,Namedb):
     reg.fit(X_train,y_train,
        eval_set=[(X_train,y_train)], 
        verbose=100)
+    model_path = "./JsonModels/model_" + str(Namedb) + "_ventas.json"
     
-    reg.save_model("model_"+str(Namedb)+"_ventas.json")
-
-    return
+    if os.path.exists(model_path):
+        os.remove(model_path)  # Eliminar el archivo existente
+    
+    reg.save_model(model_path)
+    return 
 
 def PredictXGBoost(df,Namedb):
     reg_new= xgb.Booster()
-    reg_new.load_model("./model"+str(Namedb)+"_ventas.json")
+    reg_new.load_model("./JsonModels/model_"+str(Namedb)+"_ventas.json")
     X_train_dmatrix = xgb.DMatrix(df)
     predictions = reg_new.predict(X_train_dmatrix)
     predictions= predictions.tolist()

@@ -28,7 +28,6 @@ app.add_middleware(
 
 # Endpoint para cargar y procesar la imagen
 @app.post("/PrediccionVentas")
-
 def process_date(fechas: models.ventasModels.FechasInput):
     fechaInicio = fechas.fechaInicio
     fechaFin = fechas.fechaFin
@@ -46,14 +45,10 @@ def train_model(Cred:models.ventasModels.CredencialesDatosEntrenamiento):
     consulta = "SELECT DOCU_FECFAC AS DAY,ROUND(SUM(DOCU_TOTALX)) AS TOTALX FROM vista_ventas WHERE DOCU_ESTADO = 'EMITIDA' AND DOCU_TIPOXX = 'FACTURA ELECTRONICA' GROUP BY YEAR(DOCU_FECFAC), DOCU_FECFAC";
 
     df=config.MysqlConecction.ConecctionDatabase(consulta,Cred.Namedb,Cred.usuario,Cred.contra)
-
-    print(df)
     df= Controllers.VentasPredic_Controller.create_feature(df)
     X_train,y_train= Controllers.VentasPredic_Controller.create_X_y_Train(df)
-    try:
-        models.ModelsPrediccion.TrainXGBoost(X_train,y_train,Cred.Namedb)
-    except:
-        return "A ocurrido un error al entrenar el modelo"
+    models.ModelsPrediccion.TrainXGBoost(X_train,y_train,Cred.Namedb)   
+    
    
     return "modelo entrenado con exito"
 
