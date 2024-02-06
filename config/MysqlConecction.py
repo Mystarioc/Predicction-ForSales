@@ -6,11 +6,11 @@ import pandas as pd
 
 def ConecctionDatabase(consulta,database,user,password):
 # Consulta SQL que deseas ejecutar
-    host = '167.235.15.248'
-    #database = 'Contable_IA'
+    host = '#'
+    #database = '#'
     port= '3306'
-    #user = 'starpass'
-    #password = 'Star@2023*_2026$'
+    #user = '#'
+    #password = '#'
 
 # Realizar la conexión a la base de datos
     connection = mysql.connector.connect(host=host,port=port, database=database, user=user, password=password)
